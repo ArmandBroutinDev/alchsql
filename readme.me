@@ -1,0 +1,11 @@
+commandes docker utilisées:
+
+sudo docker build -t sql:01 .
+sudo docker run -p 3306:3306 -d sql:01 
+sudo docker exec -it [] mysql -uroot -p
+
+commandes mysql:
+show databases;
+select user from mysql.user; (savoir si y a un nouvel utilisateur)
+use classicmodels;
+show tables;
