@@ -1,6 +1,7 @@
 from sqlalchemy import *
 import subprocess
 import sqlalchemy.dialects.mysql
+import pymysql
 
 config = {
     'host' : 'localhost',
@@ -25,12 +26,22 @@ print('--- docker ps info ---\n')
 returned_value = subprocess.call("docker ps", shell=True)
 
 print('\n--- Tables into database---\n')
-
 with engine.connect() as connection:
-    result = connection.execute("show tables")
-    print(result)
+    result = connection.execute("show tables;")
+    for row in result:
+        print(row)
 
-
+    print("\nrequete 1")
     rs = connection.execute("select * from offices order by country,state,city;")
     for row in rs:
         print(row)
+
+    print("\nrequete 2")
+    rs = connection.execute("select sum(amount) from payments;")
+    for row in rs:
+        print(row['sum(amount)'])
+
+    print("\nrequete 3")
+    rs = connection.execute("select count(employeeNumber) from employees;")
+    for row in rs:
+        print(row['count(employeeNumber)'])
